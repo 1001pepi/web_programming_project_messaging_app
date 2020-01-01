@@ -1,13 +1,14 @@
 @import "../../../styles.scss";
 .row{
     display:flex;
-    flex-direction: row;
-    align-items: center;
+    justify-content: center;
 }
 
 #logo{
-    width: 150px;
-    height: 150px;
+    width: 75px;
+    height: 75px;
+    border: 1px solid $c-primary;
+    border-radius: 37.5px;
 }
 
 .form{

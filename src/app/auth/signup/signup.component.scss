@@ -1,9 +1,7 @@
 @import "../../../styles.scss";
 .row{
-    align-items: center;
-    display:flex;
-    flex-direction: row;
-    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 .form{
     
@@ -14,10 +12,12 @@
 }
 
 #logo{
-    width: 150px;
-    height: 150px;
+    width: 75px;
+    height: 75px;
+    border: 1px solid $c-primary;
+    border-radius: 37.5px;
+    
 }
-
 
 a{
     color: $c-primary;

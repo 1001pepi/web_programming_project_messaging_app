@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-$c-primary: #1976D2;
-$c-secondary: #c5354f;
+$c-primary: rgb(25, 118, 210);
+$c-secondary: rgb(197, 53, 79);
 $c-paleBlue: rgb(227, 230, 237);
 $paddingBtn : 0.39em;
 $radiusBtn: 0.3em;
@@ -31,6 +31,10 @@ $radiusBtnLg: 0.5em;
         padding: $paddingBtn;
         border-radius: $radiusBtn;
         border: 1px solid $c-primary ;
+        transition: transform 100ms ease-in-out;
+        &:hover{
+            transform: scale(1.1);
+        }
         
     }
     &--secondary{
@@ -39,6 +43,10 @@ $radiusBtnLg: 0.5em;
         padding: $paddingBtn;
         border-radius: $radiusBtn;
         border: 1px solid $c-secondary ;
+        transition: transform 100ms ease-in-out;
+        &:hover{
+            transform: scale(1.1);
+        }
     }
     &.btn--lg{
         width: 15em;
@@ -61,6 +69,7 @@ $radiusBtnLg: 0.5em;
         color: $c-primary;
         padding: $paddingBtn;
         border: 2px solid $c-primary ;
+        transition: transform 100ms ease-in-out;
         &.btn--disabled{
             border: 2px solid $c-paleBlue;
             &:hover{
@@ -72,6 +81,7 @@ $radiusBtnLg: 0.5em;
         &:hover{
             background-color: $c-primary;
             color: white;
+            transform: scale(1.1);
         }
         
     }
@@ -81,6 +91,7 @@ $radiusBtnLg: 0.5em;
         color: $c-secondary;
         padding: $paddingBtn;
         border: 2px solid $c-secondary ;
+        transition: transform 100ms ease-in-out;
         &.btn--disabled{
             border: 2px solid $c-paleBlue;
             &:hover{
@@ -92,6 +103,7 @@ $radiusBtnLg: 0.5em;
         &:hover{
             background-color: $c-secondary;
             color: white;
+            transform: scale(1.1);
         }
         
     }
