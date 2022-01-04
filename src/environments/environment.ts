@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   signUp_API_URL: 'http://localhost:1337/users/',
+  signIn_API_URL: 'http://localhost:1337/login/',
 };
 
 /*

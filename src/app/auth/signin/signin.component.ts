@@ -30,15 +30,17 @@ export class SigninComponent implements OnInit {
   onSubmit(): void {
     var phone = this.signinForm.get('phone')!.value;
     var password = this.signinForm.get('password')!.value;
+
     this.authService.signInUser(phone,password).then(
-      
-      () => {
-        console.log('Hello');
+      (response) => {
+        
+
         this.router.navigate(['/core']);
       },
       (error) => {
-        this.signinMessage = "message d'erreur venant du backend ";
-        this.router.navigate(['/auth/signup']);
+       
+        this.signinMessage = "Wrong credentials!";
+        this.router.navigate(['/auth/signin']);
       }
     );
     

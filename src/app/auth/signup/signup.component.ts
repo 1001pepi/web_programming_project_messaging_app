@@ -33,6 +33,7 @@ export class SignupComponent implements OnInit {
     this.authService.signUpUser(username, phone, password)
     .then(
       () => {this.router.navigate(['/auth/signin']);},
+      
       (error) => {
         console.log(error)
         this.signupMessage = error.error['error'].split(",")[0].split(":")[2];

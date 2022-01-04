@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', component: IndexComponent },
   /* Feature modules */
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
-  { path: 'core', /*canActivate: [AuthGuardService],*/ loadChildren: () => import('./core/core.module').then(m => m.CoreModule) }
+  { path: 'core', canActivate: [AuthGuardService], loadChildren: () => import('./core/core.module').then(m => m.CoreModule) }
   /*{ path:'**', component:AppComponent}*/
 ];
 

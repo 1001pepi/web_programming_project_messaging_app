@@ -14,7 +14,9 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
     this.adminStatus = this.authService.isAdmin;
   }
+
   onSignOut() {
     this.authService.signOut();
   }
+  
 }

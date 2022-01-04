@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { environment } from '../../../environments/environment';
 
@@ -41,15 +41,30 @@ export class AuthService {
     signInUser(username:string, password:string){
         return new Promise( //asynchronous function
             (resolve, reject) => {
-                setTimeout(
-                () => {
-                    this.isAuth = true;
-                    resolve(true);
-                }, 2000
+                this.http
+                .post(environment.signIn_API_URL, 
+                    {
+                        username: username, 
+                        password: password,
+                    }
+                ).subscribe(
+                    (response: any): void => {
+                        if(response.status !== 401){
+                            this.isAuth = true;
+                            localStorage.setItem('isAuth', 'true')
+                            localStorage.setItem('token', response.token)
+                        }
+
+                        resolve(response);
+                    },
+                    (error) => {
+                        reject(error);
+                    }
                 );
             }
         );
     }
+
     backupPassword(email:string){
         return new Promise( //asynchronous function
             (resolve, reject) => {
@@ -57,9 +72,11 @@ export class AuthService {
             }
         );
     }
+
     signOut() {
-        
         this.isAuth = false;
-        
+
+        localStorage.removeItem('isAuth')
+        localStorage.removeItem('token')
     }
 }
