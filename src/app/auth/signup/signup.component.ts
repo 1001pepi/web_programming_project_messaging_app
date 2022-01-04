@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
   signupForm : FormGroup = this.fb.group({ });
-  signupMessage: string = 'gfhghfsghdg';
+  signupMessage: string = '';
+  
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private router:Router) { 
@@ -23,22 +24,25 @@ export class SignupComponent implements OnInit {
   get password(){
     return this.signupForm.get('password');
   }
+
   onSubmit(): void {
-    var email = this.signupForm.get('email')!.value;
+    var username = this.signupForm.get('username')!.value;
     var password = this.signupForm.get('password')!.value;
     var phone = this.signupForm.get('phone')!.value;
-    this.authService.signUpUser(email,phone,password).then(
-      () => {this.router.navigate(['/']);},
+
+    this.authService.signUpUser(username, phone, password)
+    .then(
+      () => {this.router.navigate(['/auth/signin']);},
       (error) => {
-        this.signupMessage = "message d'erreur venant du backend ";
+        console.log(error)
+        this.signupMessage = error.error['error'].split(",")[0].split(":")[2];
         this.router.navigate(['/auth/signup']);
        }
-    );
-    
+    )
   }
   initForm(){
     this.signupForm = this.fb.group({
-      email: ['', [Validators.required,Validators.email]],
+      username: [],
       phone: ['', [Validators.required, Validators.pattern("^6[0-9]{8}")]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.pattern("^.*[~!@#$%^&*|]+.*$")]],
       passwordConfirmation: ['', [Validators.required]]
