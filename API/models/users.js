@@ -6,12 +6,24 @@ const mongoose = require('mongoose')
 const db = require('../db')
 
 const SALT_ROUNDS = 10
+const CODE_LENGTH = 6;
 
 const userSchema = mongoose.Schema({
     _id: {type: String, default: cuid},
     username: usernameSchema(),
+    email: {type: String, default: undefined, validate:[
+        {
+            validator: function(email){ return isUnique(this, {email: email})},
+            message: props => `${props.value} email is taken`
+        }
+    ]},
     password: {type: String, maxLength: 120, required: true},
-    phoneNumber: {type: String, required: true, unique: true},
+    phoneNumber: {type: String, required: true, unique: true, validate:[
+        {
+            validator: function(phoneNumber){ return isUnique(this, {phoneNumber: phoneNumber})},
+            message: props => `${props.value} phone number is taken`
+        }
+    ]},
     resetPasswordCode: {type: String, default: undefined}, 
     isAdmin: {type: Boolean, default: false},
 },{
@@ -32,6 +44,9 @@ module.exports = {
 //function to create a new user
 async function create(fields){
     const user = new User(fields)
+
+    await hashPassword(user)
+
     await user.save()
 
     return user
@@ -51,12 +66,14 @@ async function list(opts ={}){
 
 //function to get a user
 async function get(params = {}){
-    const {id, phoneNumber, username} = params
+    const {id, phoneNumber, username, email} = params
 
     const user = await (
         id ? User.findById(id) : (
             phoneNumber ? User.findOne({phoneNumber: phoneNumber}) : (
-                username ? User.findOne({username: username}) : null
+                username ? User.findOne({username: username}) : (
+                    email ? User.findOne({email: email}) : null
+                )
             )
         )
     )
@@ -104,9 +121,21 @@ function usernameSchema(){
 
 
 //function to check the unicity of the username
-async function isUnique(doc, username){
-    const existing = await get({username: username})
+async function isUnique(doc, params={}){
+    const {username, phoneNumber, email} = params
 
+    var existing = false
+
+    if(username){
+        existing = await get({username: username})
+
+    }else if(phoneNumber){
+        existing = await get({phoneNumber: phoneNumber})
+
+    }else if(email){
+        existing = await get({email: email})
+    }
+        
     return !existing || doc._id === existing._id
  }
 

@@ -17,12 +17,12 @@ async function createTmpUser(req, res, next){
     const token = await auth.sign({username: tmpUser.username}, auth.jwt_confirm_phoneNumber_Opts)
     
     //construction of the object that will be returned in the response
-    const {username, phoneNumber, validationCode} = tmpUser 
+    const {username, email, phoneNumber, validationCode} = tmpUser 
 
     //send the validation code to the phone number
     //////////////////////////////////////////////
 
-    res.json({username, phoneNumber, token})
+    res.json({username, email, phoneNumber, token})
 }
 
 //handle the confirm phone number request
@@ -36,7 +36,7 @@ async function confirmPhoneNumber(req, res, next){
 
     if(tmpUser && tmpUser.validationCode === req.body.code){
     
-        const user = await Users.create({username: tmpUser.username, phoneNumber: tmpUser.phoneNumber, password: tmpUser.password})
+        const user = await Users.create({username: tmpUser.username, email: tmpUser.email, phoneNumber: tmpUser.phoneNumber, password: tmpUser.password})
 
         if(user){
             //delete the temporary user

@@ -13,8 +13,19 @@ const CODE_LENGTH = 6;
 const tmpUserSchema = mongoose.Schema({
     _id: {type: String, default: cuid},
     username: usernameSchema(),
+    email: {type: String, required: true, unique: true, validate:[
+        {
+            validator: function(email){ return isUnique(this, {email: email})},
+            message: props => `${props.value} email is taken`
+        }
+    ]},
     password: {type: String, maxLength: 120, required: true},
-    phoneNumber: {type: String, required: true, unique: true},
+    phoneNumber: {type: String, required: true, unique: true, validate:[
+        {
+            validator: function(phoneNumber){ return isUnique(this, {phoneNumber: phoneNumber})},
+            message: props => `${props.value} phone number is taken`
+        }
+    ]},
     validationCode:{type: String, required: true, unique: true}
 },{
     timestamps: true
@@ -44,12 +55,14 @@ async function create(fields){
 
 //function to get a temporary user
 async function get(params = {}){
-    const {id, phoneNumber, username} = params
+    const {id, phoneNumber, username, email} = params
 
     const tmpUser = await (
         id ? TmpUser.findById(id) : (
             phoneNumber ? TmpUser.findOne({phoneNumber: phoneNumber}) : (
-                username ? TmpUser.findOne({username: username}) : null
+                username ? TmpUser.findOne({username: username}) : (
+                    email ? TmpUser.findOne({email: email}) : null
+                )
             )
         )
     )
@@ -75,7 +88,7 @@ function usernameSchema(){
                 validator: isAlphanumeric,
                 message: props => `${props.value} contains special characters`
             },{
-                validator: function(username){ return isUnique(this, username)},
+                validator: function(username){ return isUnique(this, {username: username})},
                 message: props => `${props.value} username is taken`
             }
         ]
@@ -83,9 +96,21 @@ function usernameSchema(){
 }
 
 //function to check the unicity of the username
-async function isUnique(doc, username){
-    const existing = await get({username: username})
+async function isUnique(doc, params={}){
+    const {username, phoneNumber, email} = params
 
+    var existing = false
+
+    if(username){
+        existing = await get({username: username})
+
+    }else if(phoneNumber){
+        existing = await get({phoneNumber: phoneNumber})
+
+    }else if(email){
+        existing = await get({email: email})
+    }
+        
     return !existing || doc._id === existing._id
  }
 

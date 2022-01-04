@@ -22,9 +22,9 @@ async function createUser(req, res, next){
     const user = await Users.create(req.body)
     
     //construction of the object that will be returned in the response
-    const {username, phoneNumber, isAdmin} = user 
+    const {username, email, phoneNumber, isAdmin} = user 
 
-    res.json({username, phoneNumber, isAdmin})
+    res.json({username, email, phoneNumber, isAdmin})
 }
 
 //handle the get users list request
@@ -38,8 +38,8 @@ async function listUsers(req, res, next){
         })
     
         const filteredUsers = users.map(function (user){
-            const {_id, username, phoneNumber, isAdmin} = user
-            return {_id, username, phoneNumber, isAdmin}
+            const {_id, username, email, phoneNumber, isAdmin} = user
+            return {_id, username, email, phoneNumber, isAdmin}
          }) 
     
         res.json(filteredUsers)
@@ -80,9 +80,9 @@ async function editUser(req, res, next){
     if(req.user.id === req.params.id){
         const user = await Users.edit(req.params.id, change)
 
-        const {username, phoneNumber, isAdmin} = user 
+        const {username, email, phoneNumber, isAdmin} = user 
 
-        res.json({username, phoneNumber, isAdmin})
+        res.json({username, email, phoneNumber, isAdmin})
 
     }else{
         const err = new Error('Unauthorized')

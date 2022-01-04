@@ -20,7 +20,7 @@ app.use(middleware.cors)
 app.use(cookieParser())
 app.use(passport.initialize())
 
-app.post('/tmpusers', tmp_user_api.createTmpUser)
+app.post('/users', user_api.createUser)
 app.post('/confirmPhoneNumber', tmp_user_api.confirmPhoneNumber)
 
 app.post('/login', auth.authenticate, auth.login)       
