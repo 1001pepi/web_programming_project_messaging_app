@@ -23,6 +23,10 @@
             <p>Results search</p>
         </div>
     </div>
+    <div class="row mt-1 page">
+        <a role="button" routerLink="" class="btn btn--sm btn--secondary">Previous page</a>
+        <a role="button" routerLink="" class="btn btn--sm btn--secondary">Next page</a>
+    </div>
     <div class="row mt-2">
         <div class="col col-lg-8" *ngIf="isContact">
             <app-result-list-item-contact *ngFor="let contact of contacts" [name]="contact.name" [number]="contact.number"></app-result-list-item-contact>
