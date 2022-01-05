@@ -6,7 +6,7 @@ import { ConversationsComponent } from './conversations/conversations.component'
 import { SingleConversationComponent } from './single-conversation/single-conversation.component';
 import { ConversationsViewComponent } from './conversations-view/conversations-view.component';
 import { SettingsComponent } from './settings/settings.component';
-
+import { SearchComponent } from './search/search.component'
 
 
 const routes: Routes = [
@@ -14,6 +14,7 @@ const routes: Routes = [
     children:[
       {path:'', redirectTo:'contacts'},
       { path: 'contacts', component: ContactsComponent },
+      { path: 'search', component:SearchComponent},
       { path: 'conversations', component: ConversationsViewComponent, 
         children:[
           {path:'', component:ConversationsComponent},

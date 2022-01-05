@@ -8,6 +8,7 @@ import { AuthService} from './auth/services/auth.service';
 import { IndexComponent } from './index/index.component';
 import { NavIndexComponent } from './nav-index/nav-index.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [AuthGuardService, AuthService],
   bootstrap: [AppComponent]
