@@ -50,7 +50,10 @@ export class AuthService {
                 ).subscribe(
                     (response: any): void => {
                         if(response.status !== 401){
+                            console.log(response)
+
                             this.isAuth = true;
+                            localStorage.setItem('userId', response.user_id)
                             localStorage.setItem('isAuth', 'true')
                             localStorage.setItem('token', response.token)
                         }

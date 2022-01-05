@@ -11,7 +11,7 @@ export class ConversationsComponent implements OnInit {
   constructor(private conversationService:ConversationService) { }
 
   ngOnInit(): void {
-    this.conversationService.listDiscussions();
+    
   }
 
 }

@@ -8,6 +8,9 @@ export const environment = {
   signIn_API_URL: 'http://localhost:1337/login/',
   contacts_API_URL: 'http://localhost:1337/contacts/',
   discussions_API_URL: 'http://localhost:1337/discussions/',
+  sending_message_API_URL: 'http://proxysms.mufoca.com/api/v0/shortMessages',
+  messages_API_URL: 'http://localhost:1337/messages/',
+  users_API_URL: 'http://localhost:1337/users/',
 };
 
 /*

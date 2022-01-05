@@ -105,12 +105,103 @@ export class ContactService {
   }
 
 
-  deleteContact(contact: Contact){
+  deleteContact(contactId: string | null){
     ////
-    this.emitContacts();
+    const token:any = localStorage.getItem('token')
+    
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': token,
+        'Content-Type':'application/json',
+        
+        }),
+        
+    };
+
+    const env = environment.contacts_API_URL + contactId
+    
+    const pushPromise= new Promise( //asynchronous function
+      (resolve, reject) => {
+        
+          //Place backend function here
+          this.http
+          .delete(env, 
+              
+              httpOptions
+          ).subscribe(
+            (response) => {
+              console.log("contact supprimé")
+              
+              
+                  resolve(response);
+              },
+              (error) => {
+                  reject(error);
+              }
+          );
+      }
+  ).then(
+      (response:any) => {
+        console.log(response)
+        this.listContacts();
+        this.emitContacts();
+      },
+      (error:any) => {
+
+      }
+    )
   }
 
-  modifyContact(contact: Contact, name:string, number:string, photo:string){
+  modifyContact(id: any, contact:Contact){
+    const token:any = localStorage.getItem('token')
+    const env = environment.contacts_API_URL + id
+    
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': token,
+        'Content-Type':'application/json',
+        
+        }),
+        
+    };
+
+    const pushPromise= new Promise( //asynchronous function
+      (resolve, reject) => {
+        console.log("hello les gens")
+          //Place backend function here
+          this.http
+          .put(env,
+            {
+              name: contact.name,
+              phoneNumber: contact.number,
+               
+                //owner: contact.name Je vais changer lorsque ça va fonctionner
+            }, 
+              httpOptions
+          ).subscribe(
+            (response) => {
+              console.log("contact changé")
+              
+              
+                  resolve(response);
+              },
+              (error) => {
+                  reject(error);
+                  console.log("hello les gens2")
+              }
+          );
+      }
+  ).then(
+      (response:any) => {
+        console.log(response)
+        this.emitContacts();
+        this.listContacts();
+      },
+      (error:any) => {
+
+      }
+    )
+    
     //////////
     this.emitContacts();
   }

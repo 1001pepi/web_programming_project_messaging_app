@@ -16,7 +16,12 @@ import { MessageComponent } from './message/message.component';
 import { FormsModule } from '@angular/forms';
 
 import { ContactService} from './services/contact.service';
-import { SettingsComponent } from './settings/settings.component'
+import { SettingsComponent } from './settings/settings.component';
+import { SearchComponent } from './search/search.component';
+import { SearchService } from './services/search.service';
+
+import { ResultListItemMessageComponent } from './result-list-item-message/result-list-item-message.component';
+import { ResultListItemContactComponent } from './result-list-item-contact/result-list-item-contact.component';
 
 
 @NgModule({
@@ -32,13 +37,16 @@ import { SettingsComponent } from './settings/settings.component'
     SingleConversationComponent,
     ConversationsViewComponent,
     MessageComponent,
-    SettingsComponent
+    SettingsComponent,
+    SearchComponent,
+    ResultListItemMessageComponent,
+    ResultListItemContactComponent
   ],
   imports: [
     CommonModule,
     CoreRoutingModule,
     FormsModule
   ],
-  providers: [ContactService]
+  providers: [ContactService, SearchService]
 })
 export class CoreModule { }

@@ -1,25 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+@import "../../../styles.scss";
+.hidden-sm{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-import { ForgotPasswordComponent } from './forgot-password.component';
+div a{
+    color: $c-primary;
+}
 
-describe('ForgotPasswordComponent', () => {
-  let component: ForgotPasswordComponent;
-  let fixture: ComponentFixture<ForgotPasswordComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ForgotPasswordComponent ]
-    })
-    .compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ForgotPasswordComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+@media screen and (max-width: 800px) {
+    .hidden-sm{
+      display: block;
+      margin-left: 0px;
+    }
+}

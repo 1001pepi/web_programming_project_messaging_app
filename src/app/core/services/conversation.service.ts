@@ -15,7 +15,7 @@ export class ConversationService {
   constructor(private http: HttpClient) { }
 
   conversationSubject = new Subject<Conversation[]>();
-  private conversations: Conversation[] = [];
+  public conversations: Conversation[] = [];
 
   emitConversations() {
     this.conversationSubject.next(this.conversations.slice());
@@ -91,7 +91,7 @@ export class ConversationService {
         console.log(response)
 
         this.conversations = response.map(function(conversation:any){
-          return new Conversation(new Contact(conversation.receiver.number, conversation.receiver.name, conversation.receiver._id), conversation.messages, conversation._id);
+          return new Conversation(new Contact(conversation.receiver.phoneNumber, conversation.receiver.name, conversation.receiver._id), conversation.messages, conversation._id);
         })
         
         this.emitConversations();

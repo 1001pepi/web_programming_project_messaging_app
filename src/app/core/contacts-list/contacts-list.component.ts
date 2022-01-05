@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { Contact } from 'src/app/models/contact.model';
 import { ContactService } from '../services/contact.service';
+import { ConversationService } from '../services/conversation.service';
 
 
 @Component({
@@ -12,7 +14,7 @@ import { ContactService } from '../services/contact.service';
 export class ContactsListComponent implements OnInit {
   contacts: Contact[] = [];
   contactSubscription: Subscription = new Subscription();
-  constructor(private contactService:ContactService) { }
+  constructor(private contactService:ContactService, private conversationService:ConversationService){ }
   /*contacts:any[]=[
     {name: 'Coralie Tonle', number:'675878789'},
     {name: 'John Doe', number:'675878789'},
@@ -23,6 +25,7 @@ export class ContactsListComponent implements OnInit {
       (contacts:Contact[]) => { this.contacts = contacts;}
     ); 
     this.contactService.emitContacts(); 
+    this.conversationService.listDiscussions();
   }
 
   ngOnDestroy() {
