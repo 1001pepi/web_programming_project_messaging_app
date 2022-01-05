@@ -13,10 +13,11 @@ export class ContactsComponent implements OnInit {
   constructor(private contactService:ContactService) { }
 
   ngOnInit(): void {
+
   }
 
-  addContact(number:string, name:string, photo:string): Contact{
-    return new Contact(number, name,photo);
+  addContact(number:string, name:string): Contact{
+    return new Contact(number, name);
   }
 
   onDeleteContact(contact: Contact):void{
@@ -26,11 +27,15 @@ export class ContactsComponent implements OnInit {
   onModifyContacts(contact: Contact):void{
 
   }
+
+
   onSubmit(form: NgForm) {
     const name = form.value['name'];
     const number = form.value['number'];
-    const photo = form.value['photo'];
-    this.contactService.addContact(this.addContact(number,name, photo));
+    /* const photo = form.value['photo']; */
+
+    this.contactService.addContact(this.addContact(number,name));
+
     form.resetForm();
   }
 }
