@@ -71,15 +71,21 @@ function adminStrategy(){
                 //the second parameter is the user object that will be sent to the callback function, the callback function being the login function.
             }
 
+            console.log("hi")
+
+            return cb(null, false)
+
         }catch(err){
             console.log(err)
-            cb(null, false)
+            return cb(null, false)
         }
     })
 }
 
 async function ensureUser(req, res, next){
     const jwtString = req.headers.authorization || req.cookies.jwt
+
+    console.log(req.headers)
 
     const payload = await verify(jwtString)
 
