@@ -30,7 +30,7 @@ async function login(req, res, next){
 
     res.cookie = ('jwt', token, {httpOnly: true})
 
-    res.json({success: true, token: token})
+    res.json({success: true, token: token, user_id: req.user.id})
 }
 
 async function sign(payload, jwtOpts){

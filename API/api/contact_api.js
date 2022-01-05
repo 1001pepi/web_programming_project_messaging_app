@@ -1,4 +1,5 @@
 const Contacts = require('../models/contacts')
+const Discussions = require('../models/discussions')
 const autoCatch = require('../lib/auto-catch').autoCatch
 
 module.exports = {
@@ -12,19 +13,12 @@ module.exports = {
 
 //handle the create contact request
 async function createContact(req, res, next){
-    const contact = await Contacts.get({name: req.body.name, owner: req.user.id})
+    const fields = req.body
+    fields.owner = req.user.id
 
-    if(contact){
-        res.status(500).json({message: "You already have a contact with this name."})
+    const newContact = await Contacts.create(fields)
     
-    }else{
-        const fields = req.body
-        fields.owner = req.user.id
-
-        const newContact = await Contacts.create(fields)
-        
-        res.json(newContact)
-    }
+    res.json(newContact)
 }
 
 //handle list contacts request
@@ -78,6 +72,7 @@ async function editContact(req, res, next){
 async function deleteContact(req, res, next){
 
     if(await checkOwner(req.params.id, req.user.id)){
+
         await Contacts.remove(req.params.id)
 
         res.json({success: true})

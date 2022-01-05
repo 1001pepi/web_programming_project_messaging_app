@@ -45,6 +45,7 @@ app.get('/messages/:id', auth.ensureUser, message_api.getMessage)
 app.delete('/messages/:id', auth.ensureUser, message_api.deleteMessage)
 
 app.get('/discussions/', auth.ensureUser, discussion_api.listDiscussions)
+app.post('/discussions/', auth.ensureUser, discussion_api.createDiscussion)
 app.get('/discussions/:id', auth.ensureUser, discussion_api.getDiscussion)
 
 app.use(middleware.handleError)
