@@ -1,14 +1,14 @@
 <div class=" my-2 px-3 py-3 contact">
     <div class="contact-content  mr-2">
-        <div class=""> <img src="{{photo}}" alt="{{name}} photo" width="50px" height="50px"/></div>
+        <div class=""> <img src="../../../assets/images/contact.png" alt="{{name}} photo" width="50px" height="50px"/></div>
         <div>
             <a class="primary " data-toggle="collapse" href="#contact_{{id}}" role="button" aria-expanded="false" attr.aria-controls="contact_{{id}}" > {{name}}</a>
             <div class="small "><a class="primary " data-toggle="collapse" href="#contact_{{id}}" role="button" aria-expanded="false" attr.aria-controls="contact_{{id}}" >{{number}}</a></div>
         </div>
         
-    </div>
+    </div> 
     <div class="collapse mt-2" id="contact_{{id}}">
-        <div class="my-1"> <button class=" btn--outline-secondary">Write a message</button></div>
+        <div class="my-1"> <button class=" btn--outline-secondary" (click)="writeMessage()">Write a message</button></div>
         <div class="my-1"> <button  class=" btn--outline-secondary ">Modify the contact</button></div>
         <div class="my-1"> <button  class=" btn--outline-secondary ">Delete the contact</button></div>
      </div> 

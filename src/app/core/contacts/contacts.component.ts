@@ -13,11 +13,11 @@ export class ContactsComponent implements OnInit {
   constructor(private contactService:ContactService) { }
 
   ngOnInit(): void {
-
+    this.contactService.listContacts();
   }
 
   addContact(number:string, name:string): Contact{
-    return new Contact(number, name);
+    return new Contact(number, name, null);
   }
 
   onDeleteContact(contact: Contact):void{

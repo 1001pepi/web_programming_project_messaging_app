@@ -27,6 +27,8 @@ export class SigninComponent implements OnInit {
   get password(){
     return this.signinForm.get('password');
   }
+
+
   onSubmit(): void {
     var phone = this.signinForm.get('phone')!.value;
     var password = this.signinForm.get('password')!.value;
@@ -43,8 +45,9 @@ export class SigninComponent implements OnInit {
         this.router.navigate(['/auth/signin']);
       }
     );
-    
   }
+
+  
   initForm(){
     this.signinForm = this.fb.group({
       phone: ['', [Validators.required, Validators.pattern("^6[0-9]{8}")]],

@@ -7,7 +7,7 @@ export const environment = {
   signUp_API_URL: 'http://localhost:1337/users/',
   signIn_API_URL: 'http://localhost:1337/login/',
   contacts_API_URL: 'http://localhost:1337/contacts/',
-
+  discussions_API_URL: 'http://localhost:1337/discussions/',
 };
 
 /*

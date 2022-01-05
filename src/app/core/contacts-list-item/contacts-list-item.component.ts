@@ -1,4 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { environment } from '../../../environments/environment';
+import { ConversationService } from '../services/conversation.service';
+
+
 
 @Component({
   selector: 'app-contacts-list-item',
@@ -6,13 +12,20 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./contacts-list-item.component.scss']
 })
 export class ContactsListItemComponent implements OnInit {
-  @Input() id:number=0;
+  @Input() id:string | null = '';
   @Input() name:string = "John Doe";
-  @Input() number:string = "6700000876";
+  @Input() number:string = "6700000876"; 
   @Input() photo:string = '';
-  constructor() { }
+
+  constructor(private router:Router, private conversationService: ConversationService){ }
 
   ngOnInit(): void {
+  }
+
+  writeMessage(){
+    this.conversationService.createConversation(this.id)
+    
+    this.router.navigate(['/core/conversations/0']);
   }
 
 }

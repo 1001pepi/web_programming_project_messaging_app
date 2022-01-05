@@ -5,7 +5,7 @@ import { User } from "./user.model";
 export class Conversation{
     constructor(
         public receiver:Contact,
-        public sender: User,
-        public messages:Message[]
+        public messages:Message[],
+        public id: string | null,
     ){}
 }
